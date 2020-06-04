@@ -1,6 +1,7 @@
 from room import Room
 from player import Player
 from item import Item
+from monster import Monster
 
 # Declare all the rooms
 
@@ -54,6 +55,13 @@ item_list = {
     'lantern': Item("Lantern", "You find a golden lantern which emits a bright light throughout the area.")
 }
 
+# Declare all Monsters
+
+monster_list = {
+    'dragon': Monster("Dragon", "The dragon rears up and breathes a plume of white hot fire upon you, without a sword and shield you are powerless as you are burnt to a crisp.", "The dragon rears up and breathes a plume of white hot fire upon you. Thinking quickly you bring up your shield to protect against the fire and you slay the dragon with your sword."),
+    'skeleton knight': Monster("Skeleton Knight", "The skeleton knight rushes at you and without a sword and shield yourself, it skewers you with its sword.", "With your sword you easily dispatch the skeleton knight, sending it clattering to the ground in pieces.")
+}
+
 # Link rooms together
 
 room['outside cave entrance'].n_to = room['foyer']
@@ -85,6 +93,10 @@ room['foyer'].is_lit = False
 room['narrow passage'].is_lit = False
 room['secret passage'].is_lit = False
 
+#Which rooms are locked
+
+room['secret passage'].is_locked = True
+
 item_list['lantern'].light = True
 
 #Fill rooms with items
@@ -93,6 +105,11 @@ room['foyer'].add_item(item_list['sword'])
 room['grand overlook'].add_item(item_list['key'])
 room['treasure chamber'].add_item(item_list['lantern'])
 room['deep valley'].add_item(item_list['shield'])
+
+#FIll rooms with monsters
+
+room['dragon burrow'].add_monster(monster_list['dragon'])
+room['skeleton arena'].add_monster(monster_list['skeleton knight'])
 
 #
 # Main
@@ -124,46 +141,82 @@ while running:
     notSouth = " \n There is no path to the South.\n "
 
     if player_input == "w":
-        if player.current_room.n_to != None:
+        if player.current_room.n_to != None and (not player.current_room.n_to.is_locked or player.inventory.__contains__(item_list['key'])):
+            if player.inventory.__contains__(item_list['key']) and player.current_room.n_to.is_locked:
+                print(" \n You used the key to open the locked door. \n ")
             player.current_room = player.current_room.n_to
             print(f" \n {player.current_room.description} \n ")
-            if player.current_room.is_lit or player.inventory.__contains__(item_list['lantern']):
-                print(" \n The area is brightly lit \n ")
-            else:
+            if player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
                 print(" \n It's pitch black. You need a source of light to see anything. \n ")
+            elif len(player.current_room.monsters) > 0:
+                if player.inventory.__contains__(item_list['sword']) and player.inventory.__contains__(item_list['shield']):
+                    print(player.current_room.monsters[0].monster_death)
+                    player.current_room.remove_monster(player.current_room.monsters[0])
+                else:
+                    print(player.current_room.monsters[0].player_kill)
+                    running = False
+        elif player.current_room.n_to != None and player.current_room.n_to.is_locked:
+            print(" \n A locked door bars your way forward... You need a key to continue forward. \n ")
         else:
             print(notNorth)
 
     elif player_input == "a":
-        if player.current_room.w_to != None:
+        if player.current_room.w_to != None and (not player.current_room.w_to.is_locked or player.inventory.__contains__(item_list['key'])):
+            if player.inventory.__contains__(item_list['key']) and player.current_room.w_to.is_locked:
+                print(" \n You used the key to open the locked door. \n ")
             player.current_room = player.current_room.w_to
             print(f" \n {player.current_room.description} \n ")
-            if player.current_room.is_lit or player.inventory.__contains__(item_list['lantern']):
-                print(" \n The area is brightly lit \n ")
-            else:
+            if player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
                 print(" \n It's pitch black. You need a source of light to see anything. \n ")
+            elif len(player.current_room.monsters) > 0:
+                if player.inventory.__contains__(item_list['sword']) and player.inventory.__contains__(item_list['shield']):
+                    print(player.current_room.monsters[0].monster_death)
+                    player.current_room.remove_monster(player.current_room.monsters[0])
+                else:
+                    print(player.current_room.monsters[0].player_kill)
+                    running = False
+        elif player.current_room.w_to != None and player.current_room.w_to.is_locked:
+            print(" \n A locked door bars your way forward... You need a key to continue forward. \n ")
         else:
             print(notWest)
 
     elif player_input == "d":
-        if player.current_room.e_to != None:
+        if player.current_room.e_to != None and (not player.current_room.e_to.is_locked or player.inventory.__contains__(item_list['key'])):
+            if player.inventory.__contains__(item_list['key']) and player.current_room.e_to.is_locked:
+                print(" \n You used the key to open the locked door. \n ")
             player.current_room = player.current_room.e_to
             print(f" \n {player.current_room.description} \n ")
-            if player.current_room.is_lit or player.inventory.__contains__(item_list['lantern']):
-                print(" \n The area is brightly lit \n ")
-            else:
+            if player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
                 print(" \n It's pitch black. You need a source of light to see anything. \n ")
+            elif len(player.current_room.monsters) > 0:
+                if player.inventory.__contains__(item_list['sword']) and player.inventory.__contains__(item_list['shield']):
+                    print(player.current_room.monsters[0].monster_death)
+                    player.current_room.remove_monster(player.current_room.monsters[0])
+                else:
+                    print(player.current_room.monsters[0].player_kill)
+                    running = False
+        elif player.current_room.e_to != None and player.current_room.e_to.is_locked:
+            print(" \n A locked door bars your way forward... You need a key to continue forward. \n ")
         else:
             print(notEast)
 
     elif player_input == "s":
-        if player.current_room.s_to != None:
+        if player.current_room.s_to != None and (not player.current_room.s_to.is_locked or player.inventory.__contains__(item_list['key'])):
+            if player.inventory.__contains__(item_list['key']) and player.current_room.s_to.is_locked:
+                print(" \n You used the key to open the locked door. \n ")
             player.current_room = player.current_room.s_to
             print(f" \n {player.current_room.description} \n ")
-            if player.current_room.is_lit or player.inventory.__contains__(item_list['lantern']):
-                print(" \n The area is brightly lit \n ")
-            else:
+            if player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
                 print(" \n It's pitch black. You need a source of light to see anything. \n ")
+            elif len(player.current_room.monsters) > 0:
+                if player.inventory.__contains__(item_list['sword']) and player.inventory.__contains__(item_list['shield']):
+                    print(player.current_room.monsters[0].monster_death)
+                    player.current_room.remove_monster(player.current_room.monsters[0])
+                else:
+                    print(player.current_room.monsters[0].player_kill)
+                    running = False
+        elif player.current_room.s_to != None and player.current_room.s_to.is_locked:
+            print(" \n A locked door bars your way forward... You need a key to continue forward. \n ")
         else:
             print(notSouth)
 
