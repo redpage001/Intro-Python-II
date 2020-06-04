@@ -10,5 +10,5 @@ class Player:
     def add_to_inventory(self, item):
         self.inventory.append(item)
 
-    def drop_from_inventory(self, id):
-        self.inventory[id].remove()
+    def drop_from_inventory(self, item):
+        self.inventory.remove(item)
