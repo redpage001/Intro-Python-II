@@ -144,9 +144,9 @@ while running:
         if player.current_room.n_to != None and (not player.current_room.n_to.is_locked or player.inventory.__contains__(item_list['key'])):
             if player.inventory.__contains__(item_list['key']) and player.current_room.n_to.is_locked:
                 print(" \n You used the key to open the locked door. \n ")
-            player.current_room = player.current_room.n_to
-            print(f" \n {player.current_room.description} \n ")
-            if player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
+                player.current_room = player.current_room.n_to
+                print(f" \n {player.current_room.description} \n ")
+            elif player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
                 print(" \n It's pitch black. You need a source of light to see anything. \n ")
             elif len(player.current_room.monsters) > 0:
                 if player.inventory.__contains__(item_list['sword']) and player.inventory.__contains__(item_list['shield']):
@@ -164,9 +164,9 @@ while running:
         if player.current_room.w_to != None and (not player.current_room.w_to.is_locked or player.inventory.__contains__(item_list['key'])):
             if player.inventory.__contains__(item_list['key']) and player.current_room.w_to.is_locked:
                 print(" \n You used the key to open the locked door. \n ")
-            player.current_room = player.current_room.w_to
-            print(f" \n {player.current_room.description} \n ")
-            if player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
+                player.current_room = player.current_room.w_to
+                print(f" \n {player.current_room.description} \n ")
+            elif player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
                 print(" \n It's pitch black. You need a source of light to see anything. \n ")
             elif len(player.current_room.monsters) > 0:
                 if player.inventory.__contains__(item_list['sword']) and player.inventory.__contains__(item_list['shield']):
@@ -184,9 +184,9 @@ while running:
         if player.current_room.e_to != None and (not player.current_room.e_to.is_locked or player.inventory.__contains__(item_list['key'])):
             if player.inventory.__contains__(item_list['key']) and player.current_room.e_to.is_locked:
                 print(" \n You used the key to open the locked door. \n ")
-            player.current_room = player.current_room.e_to
-            print(f" \n {player.current_room.description} \n ")
-            if player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
+                player.current_room = player.current_room.e_to
+                print(f" \n {player.current_room.description} \n ")
+            elif player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
                 print(" \n It's pitch black. You need a source of light to see anything. \n ")
             elif len(player.current_room.monsters) > 0:
                 if player.inventory.__contains__(item_list['sword']) and player.inventory.__contains__(item_list['shield']):
@@ -204,9 +204,9 @@ while running:
         if player.current_room.s_to != None and (not player.current_room.s_to.is_locked or player.inventory.__contains__(item_list['key'])):
             if player.inventory.__contains__(item_list['key']) and player.current_room.s_to.is_locked:
                 print(" \n You used the key to open the locked door. \n ")
-            player.current_room = player.current_room.s_to
-            print(f" \n {player.current_room.description} \n ")
-            if player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
+                player.current_room = player.current_room.s_to
+                print(f" \n {player.current_room.description} \n ")
+            elif player.current_room.is_lit == False and not player.inventory.__contains__(item_list['lantern']):
                 print(" \n It's pitch black. You need a source of light to see anything. \n ")
             elif len(player.current_room.monsters) > 0:
                 if player.inventory.__contains__(item_list['sword']) and player.inventory.__contains__(item_list['shield']):
